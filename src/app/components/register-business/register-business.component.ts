@@ -149,17 +149,17 @@ export class RegisterBusinessComponent implements OnInit {
   onFileSelect(event: Event, index) {
     const file = (event.target as HTMLInputElement).files![0];
     const selectedImage = (event.target as HTMLInputElement).files![0];
-    console.log(selectedImage)
     const allowedFileType = ["image/png", "image/jpeg", "image/jpg"];
     if (file && allowedFileType.includes(file.type)) {
-      this.req_proofs[index].image = selectedImage
+      const idx = this.req_proofs.map(proof => proof.forService).indexOf(this.services[index].name)
+      this.req_proofs[idx].image = selectedImage
     }
   }
 
 
-  async submitForm() {
+  async submitForm() {    
     for(var proof of this.req_proofs){
-      this.isLoading = true;
+      this.isLoading = true;      
       if (proof.image && proof.image.name) {
         var filePath = `proofs/${proof.image.name}_${new Date().getTime()}`;
         const fileRef = this.storage.ref(filePath);
