@@ -4,7 +4,7 @@ import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import { environment } from '../../../environments/environment';
 import { FormGroup, FormControl, Validators } from '@angular/forms'
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { finalize } from 'rxjs/operators';
+import { finalize, timeout } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -144,7 +144,6 @@ export class RegisterBusinessComponent implements OnInit {
       this.businessForm.value.services.splice(idx, 1)
       this.req_proofs.splice(idx, 1);
     }
-    console.log(this.req_proofs)
     this.isLoading = false;
   }
 
@@ -159,20 +158,18 @@ export class RegisterBusinessComponent implements OnInit {
   }
 
 
-  submitForm() {
-    this.req_proofs.map((proof, i) => {
+  async submitForm() {
+    for(var proof of this.req_proofs){
       if (proof.image && proof.image.name) {
         var filePath = `proofs/${proof.image.name}_${new Date().getTime()}`;
         const fileRef = this.storage.ref(filePath);
-        this.storage.upload(filePath, proof.image).snapshotChanges().pipe(
-          finalize(() => {
-            fileRef.getDownloadURL().subscribe((url)=>{
-              this.addUrl(url, i)
-            }
-          )}
-        ))
+        await this.storage.upload(filePath, proof.image).snapshotChanges().toPromise()
+        console.log("here")
+        var url=await fileRef.getDownloadURL().toPromise();
+        proof.url=url;
       }
-    })
+    }
+    console.log(this.req_proofs);
     this.businessForm.value.location = this.center;
   }
 
