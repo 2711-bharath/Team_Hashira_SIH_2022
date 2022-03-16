@@ -8,7 +8,8 @@ const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   {path: 'home', component: HomeComponent},
   {path: 'register-business', component: RegisterBusinessComponent},
-  {path: 'map-view', component: MapViewComponent}
+  {path: 'map-view', component: MapViewComponent},
+  {path: 'home/register-business', component: RegisterBusinessComponent}
 ];
 
 @NgModule({
