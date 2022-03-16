@@ -1,28 +1,156 @@
-<form class="row my-4">
-    <div class="col-xl-2 col-md-2 col-sm-0"></div>
-    <div class="col-xl-8 col-md-8 col-sm-12 mx-3 border rounded">
-        <h1 class="display-5 text-center">Business Details</h1>
-        <div class="row">
-            <div class="col-xl-8 col-md-12 col-sm-12">
-                <div class="mb-3">
-                    <label for="name" class="form-label">Business Name <sup class="text-danger fw-bold">*</sup></label>
-                    <input type="text" class="form-control" id="name">
-                </div>
-            </div>
-            <div class="col-xl-4 col-md-12 col-sm-12">
-                <div class="mb-3">
-                    <label for="type" class="form-label">Business Type <sup class="text-danger fw-bold">*</sup></label>
-                    <input type="text" class="form-control" id="type">
-                </div>
-            </div>
+<form class="row my-4" [formGroup]="businessForm" (ngSubmit)="submitForm()">
+  <div class="col-xl-2 col-md-2 col-sm-0"></div>
+  <div class="col-xl-8 col-md-8 col-sm-12 mx-3 border rounded">
+    <h1 class="display-5 text-center">Business Details</h1>
+    <div class="row">
+      <div class="col-xl-8 col-md-12 col-sm-12">
+        <div class="mb-3">
+          <label for="name" class="form-label">
+            Business Name <sup class="text-danger fw-bold">*</sup>
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            formControlName="name"
+          />
         </div>
-        <div class="mb-3" (window:resize)="onResize($event)">
-            <label for="location" class="form-label">Location <sup class="text-danger fw-bold">*</sup></label>
-            <section class="map_box_container">
-                <!--MAP-->
-                <div id='map-input' class="map-input"></div>
-            </section>
-        </div>        
+      </div>
+      <div class="col-xl-4 col-md-12 col-sm-12">
+        <div class="mb-3">
+          <label for="type" class="form-label">
+            Business Type <sup class="text-danger fw-bold">*</sup>
+          </label>
+          <select
+            class="form-select form-select"
+            id="type"
+            formControlName="type"
+          >
+            <option value="Hospital">Hospital</option>
+            <option value="Building">Building</option>
+            <option value="Restaurant">Restaurant</option>
+            <option value="Hotels">Hotels</option>
+            <option value="Cinema Theater">Cinema Theater</option>
+            <option value="Railway Station">Railway Station</option>
+            <option value="Bus Stop">Bus Stop</option>
+          </select>
+        </div>
+      </div>
     </div>
-    <div class="col-xl-2 col-md-2 col-sm-0"></div>
+    <div class="row">
+      <div class="mb-3">
+        <label for="address" class="form-label">
+          Address <sup class="text-danger fw-bold">*</sup>
+        </label>
+        <textarea
+          class="form-control"
+          id="address"
+          formControlName="address"
+          rows="3"
+        >
+        </textarea>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-4 col-md-6 col-sm-12">
+        <div class="mb-3">
+          <label for="name" class="form-label"> Street </label>
+          <input
+            type="text"
+            class="form-control"
+            id="street"
+            formControlName="street"
+          />
+        </div>
+      </div>
+      <div class="col-xl-4 col-md-6 col-sm-12">
+        <div class="mb-3">
+          <label for="name" class="form-label">
+            City <sup class="text-danger fw-bold">*</sup>
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="city"
+            formControlName="city"
+          />
+        </div>
+      </div>
+      <div class="col-xl-4 col-md-6 col-sm-12">
+        <div class="mb-3">
+          <label for="name" class="form-label">
+            Pincode <sup class="text-danger fw-bold">*</sup>
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="pincode"
+            formControlName="pincode"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="mb-3" (window:resize)="onResize($event)">
+      <label for="location" class="form-label">
+        Location <sup class="text-danger fw-bold">*</sup>
+      </label>
+      <section class="map_box_container">
+        <!--MAP-->
+        <div id="map-input" class="map-input"></div>
+      </section>
+    </div>
+    <div class="mb-3">
+      <label for="name" class="form-label my-auto">
+        Services With Proof <sup class="text-danger fw-bold">*</sup>
+      </label>
+      <div
+        class="flex-wrap mt-2"
+        *ngFor="let service of services; let i = index"
+      >
+        <div class="row">
+          <div class="col-xl-3 col-md-12 col-sm-12">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                [value]="service.present"
+                [id]="i"
+                (click)="updateService(i)"
+              />
+              <label class="form-check-label" [for]="i">
+                {{ service.name }}
+              </label>
+            </div>
+          </div>
+          <div *ngIf="service.present" class="col-xl-9 col-md-12 col-sm-12">
+            <div class="mb-3 d-flex align-items-center justify-content-start">
+              <label for="formFile" class="form-label">
+                Upload proof for {{ service.name }}
+                <sup class="text-danger fw-bold">*</sup>
+              </label>
+              <input
+                class="form-control form-control-sm w-50 ms-3"
+                type="file"
+                id="formFile"
+                accept="image/*"
+                (change)="onFileSelect($event, i)"
+              />
+            </div>
+          </div>
+          <!-- <div class="col-xl-8 col-md-12 col-sm-12">Hello</div> -->
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!isLoading">
+      <div *ngFor="let proof of req_proofs">
+        {{ proof.name }}
+      </div>
+    </div>
+    <div class="text-center">
+      <button class="btn btn-outline-success text-center px-4" type="submit">
+        Add Details
+      </button>
+    </div>
+  </div>
+  <div class="col-xl-2 col-md-2 col-sm-0"></div>
 </form>
