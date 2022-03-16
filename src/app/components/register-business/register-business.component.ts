@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import { environment } from '../../../environments/environment';
+import { RegisterService } from 'src/app/register.service';
 
 @Component({
   selector: 'app-register-business',
@@ -12,6 +13,8 @@ export class RegisterBusinessComponent implements OnInit {
   map: mapboxgl.Map;
   center = [78.3839, 17.537537];
   marker: any;
+
+  constructor(private RegisterService:RegisterService){};
 
   ngOnInit(): void {
     mapboxgl as typeof mapboxgl;
@@ -63,5 +66,9 @@ export class RegisterBusinessComponent implements OnInit {
     map_inp.style.height = "250px"
     map_inp.style.width = `width: ${event.target.innerWidth}px`
     // console.log(event.target.innerWidth)
+  }
+  //creating the provider object using the service.
+  create(provider:Object){
+    this.RegisterService.createProvider(provider);
   }
 }
