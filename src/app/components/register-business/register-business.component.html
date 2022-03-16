@@ -1,0 +1,28 @@
+<form class="row my-4">
+    <div class="col-xl-2 col-md-2 col-sm-0"></div>
+    <div class="col-xl-8 col-md-8 col-sm-12 mx-3 border rounded">
+        <h1 class="display-5 text-center">Business Details</h1>
+        <div class="row">
+            <div class="col-xl-8 col-md-12 col-sm-12">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Business Name <sup class="text-danger fw-bold">*</sup></label>
+                    <input type="text" class="form-control" id="name">
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-12 col-sm-12">
+                <div class="mb-3">
+                    <label for="type" class="form-label">Business Type <sup class="text-danger fw-bold">*</sup></label>
+                    <input type="text" class="form-control" id="type">
+                </div>
+            </div>
+        </div>
+        <div class="mb-3" (window:resize)="onResize($event)">
+            <label for="location" class="form-label">Location <sup class="text-danger fw-bold">*</sup></label>
+            <section class="map_box_container">
+                <!--MAP-->
+                <div id='map-input' class="map-input"></div>
+            </section>
+        </div>        
+    </div>
+    <div class="col-xl-2 col-md-2 col-sm-0"></div>
+</form>
