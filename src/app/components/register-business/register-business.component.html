@@ -26,8 +26,9 @@
             id="type"
             formControlName="type"
           >
+            <option value="Education">Education</option>
+            <option value="Residential">Residential</option>
             <option value="Hospital">Hospital</option>
-            <option value="Building">Building</option>
             <option value="Restaurant">Restaurant</option>
             <option value="Hotels">Hotels</option>
             <option value="Cinema Theater">Cinema Theater</option>
@@ -54,7 +55,18 @@
     <div class="row">
       <div class="col-xl-4 col-md-6 col-sm-12">
         <div class="mb-3">
-          <label for="name" class="form-label"> Street </label>
+          <label for="locality" class="form-label"> Locality </label>
+          <input
+            type="text"
+            class="form-control"
+            id="locality"
+            formControlName="locality"
+          />
+        </div>
+      </div>
+      <div class="col-xl-4 col-md-6 col-sm-12">
+        <div class="mb-3">
+          <label for="street" class="form-label"> Street </label>
           <input
             type="text"
             class="form-control"
@@ -65,7 +77,7 @@
       </div>
       <div class="col-xl-4 col-md-6 col-sm-12">
         <div class="mb-3">
-          <label for="name" class="form-label">
+          <label for="city" class="form-label">
             City <sup class="text-danger fw-bold">*</sup>
           </label>
           <input
@@ -78,7 +90,7 @@
       </div>
       <div class="col-xl-4 col-md-6 col-sm-12">
         <div class="mb-3">
-          <label for="name" class="form-label">
+          <label for="pincode" class="form-label">
             Pincode <sup class="text-danger fw-bold">*</sup>
           </label>
           <input
@@ -86,6 +98,19 @@
             class="form-control"
             id="pincode"
             formControlName="pincode"
+          />
+        </div>
+      </div>
+      <div class="col-xl-4 col-md-6 col-sm-12">
+        <div class="mb-3">
+          <label for="mobile" class="form-label">
+            Mobile/Contact Indo <sup class="text-danger fw-bold">*</sup>
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="mobile"
+            formControlName="mobile"
           />
         </div>
       </div>
@@ -100,7 +125,7 @@
       </section>
     </div>
     <div class="mb-3">
-      <label for="name" class="form-label my-auto">
+      <label for="service" class="form-label my-auto">
         Services With Proof <sup class="text-danger fw-bold">*</sup>
       </label>
       <div
@@ -137,17 +162,23 @@
               />
             </div>
           </div>
-          <!-- <div class="col-xl-8 col-md-12 col-sm-12">Hello</div> -->
         </div>
       </div>
     </div>
-    <div *ngIf="!isLoading">
+    <div>
       <div *ngFor="let proof of req_proofs">
         {{ proof.name }}
       </div>
     </div>
     <div class="text-center">
       <button class="btn btn-outline-success text-center px-4" type="submit">
+        <div
+          class="spinner-border spinner-border-sm mx-1"
+          role="status"
+          *ngIf="isLoading"
+        >
+          <span class="visually-hidden">Loading...</span>
+        </div>
         Add Details
       </button>
     </div>

@@ -4,8 +4,7 @@ import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import { environment } from '../../../environments/environment';
 import { FormGroup, FormControl, Validators } from '@angular/forms'
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { finalize, timeout } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { RegisterBusinessService } from '../../services/register-business.service';
 
 @Component({
   selector: 'app-register-business',
@@ -13,7 +12,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./register-business.component.scss']
 })
 export class RegisterBusinessComponent implements OnInit {
-  isLoading = true;
+  isLoading = false;
   map: mapboxgl.Map;
   center = [78.3839, 17.537537];
   marker: any;
@@ -21,7 +20,8 @@ export class RegisterBusinessComponent implements OnInit {
   services = []
   req_proofs = []
   constructor(
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private service: RegisterBusinessService
   ) { }
 
 
@@ -29,11 +29,12 @@ export class RegisterBusinessComponent implements OnInit {
     this.loadMap();
     this.businessForm = new FormGroup({
       name: new FormControl(),
-      type: new FormControl(),
+      type: new FormControl("Education"),
       address: new FormControl(),
       locality: new FormControl(),
       street: new FormControl(),
       city: new FormControl(),
+      mobile: new FormControl(),
       location: new FormControl(this.center),
       pincode: new FormControl(),
       services: new FormControl([]),
@@ -130,7 +131,6 @@ export class RegisterBusinessComponent implements OnInit {
   }
 
   updateService(index) {
-    this.isLoading = true;
     this.services[index].present = !this.services[index].present
     if (this.services[index].present) {
       this.businessForm.value.services.push(this.services[index].name)
@@ -144,7 +144,6 @@ export class RegisterBusinessComponent implements OnInit {
       this.businessForm.value.services.splice(idx, 1)
       this.req_proofs.splice(idx, 1);
     }
-    this.isLoading = false;
   }
 
   onFileSelect(event: Event, index) {
@@ -160,6 +159,7 @@ export class RegisterBusinessComponent implements OnInit {
 
   async submitForm() {
     for(var proof of this.req_proofs){
+      this.isLoading = true;
       if (proof.image && proof.image.name) {
         var filePath = `proofs/${proof.image.name}_${new Date().getTime()}`;
         const fileRef = this.storage.ref(filePath);
@@ -169,12 +169,11 @@ export class RegisterBusinessComponent implements OnInit {
         proof.url=url;
       }
     }
-    console.log(this.req_proofs);
+    this.isLoading = false
     this.businessForm.value.location = this.center;
-  }
-
-  addUrl(url, index) {
-    this.req_proofs[index].url = url;
-    console.log(url)
+    this.businessForm.value.images = this.req_proofs.map(proof => Object({name: proof.forService, url: proof.url}))
+    if(this.service.createProvider(this.businessForm.value).status) {
+      this.isLoading = false;
+    }
   }
 }

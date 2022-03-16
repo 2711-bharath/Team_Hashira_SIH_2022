@@ -13,7 +13,7 @@ export class RegisterBusinessService {
 
   createProvider(provider: Object) {
     const providerData = JSON.parse(JSON.stringify(provider));
-    return this.db.collection('Provider').add(providerData);
+    return {data: this.db.collection('Provider').add(providerData), status: true};
   }
 
   getAllProviders(): Observable<any> {
