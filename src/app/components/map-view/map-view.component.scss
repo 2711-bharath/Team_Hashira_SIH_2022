@@ -1,4 +1,21 @@
-.match-parent {
-    width: 80vw;
+.map-view {
+    width: 76vw;
     height: 80vh;
+}
+
+.filter-options {
+    width: calc(100vw - 78vw);
+    height: 80vh;
+}
+
+.btn {
+    background-color: #fff;
+    color: #3c4043;
+    text-align: center;
+    justify-content: space-between;
+    height: 32px;
+    border-radius: 32px;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
 }
