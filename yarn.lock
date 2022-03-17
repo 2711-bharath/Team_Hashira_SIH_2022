@@ -229,7 +229,11 @@
   dependencies:
     "tslib" "^2.2.0"
 
+<<<<<<< HEAD
 "@angular/core@^12.0.0 || ^13.0.0", "@angular/core@>=12.0.0-0", "@angular/core@~12.2.0", "@angular/core@12.2.16":
+=======
+"@angular/core@^12.0.0 || ^13.0.0", "@angular/core@~12.2.0", "@angular/core@12.2.16":
+>>>>>>> db57dd242a88449ca5e042aa1b85364b5079af2d
   "integrity" "sha512-jsmvaRdAfng99z2a9mAmkfcsCE1wm+tBYVDxnc5JquSXznwtncjzcoc2X0J0dzrkCDvzFfpTsZ9vehylytBc+A=="
   "resolved" "https://registry.npmjs.org/@angular/core/-/core-12.2.16.tgz"
   "version" "12.2.16"
@@ -271,7 +275,11 @@
   dependencies:
     "tslib" "^2.2.0"
 
+<<<<<<< HEAD
 "@angular/platform-browser@^12.0.0 || ^13.0.0", "@angular/platform-browser@>=12.0.0-0", "@angular/platform-browser@~12.2.0", "@angular/platform-browser@12.2.16":
+=======
+"@angular/platform-browser@^12.0.0 || ^13.0.0", "@angular/platform-browser@~12.2.0", "@angular/platform-browser@12.2.16":
+>>>>>>> db57dd242a88449ca5e042aa1b85364b5079af2d
   "integrity" "sha512-T855ppLeQO6hRHi7lGf5fwPoUVt+c0h2rgkV5jHElc3ylaGnhecmZc6fnWLX4pw82TMJUgUV88CY8JCFabJWwg=="
   "resolved" "https://registry.npmjs.org/@angular/platform-browser/-/platform-browser-12.2.16.tgz"
   "version" "12.2.16"

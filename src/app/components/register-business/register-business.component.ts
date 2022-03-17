@@ -29,7 +29,6 @@ export class RegisterBusinessComponent implements OnInit {
     private toastr: ToastrService
   ) { }
 
-
   ngOnInit(): void {
     this.loadMap();
     this.businessForm = new FormGroup({
