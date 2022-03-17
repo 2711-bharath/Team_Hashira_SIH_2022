@@ -6,25 +6,31 @@
       <div class="col-xl-8 col-md-12 col-sm-12">
         <div class="mb-3">
           <label for="name" class="form-label">
-            Business Name <sup class="text-danger fw-bold">*</sup>
+            Business Name <span class="text-danger fw-bold">*</span>
           </label>
           <input
             type="text"
             class="form-control"
             id="name"
             formControlName="name"
+            [ngClass]="{
+              'is-invalid': businessForm.get('name').errors && submitted
+            }"
           />
         </div>
       </div>
       <div class="col-xl-4 col-md-12 col-sm-12">
         <div class="mb-3">
           <label for="type" class="form-label">
-            Business Type <sup class="text-danger fw-bold">*</sup>
+            Business Type <span class="text-danger fw-bold">*</span>
           </label>
           <select
-            class="form-select form-select"
+            class="form-select"
             id="type"
             formControlName="type"
+            [ngClass]="{
+              'is-invalid': businessForm.get('type').errors && submitted
+            }"
           >
             <option value="Education">Education</option>
             <option value="Residential">Residential</option>
@@ -41,13 +47,16 @@
     <div class="row">
       <div class="mb-3">
         <label for="address" class="form-label">
-          Address <sup class="text-danger fw-bold">*</sup>
+          Address <span class="text-danger fw-bold">*</span>
         </label>
         <textarea
           class="form-control"
           id="address"
           formControlName="address"
-          rows="3"
+          rows="2"
+          [ngClass]="{
+            'is-invalid': businessForm.get('address').errors && submitted
+          }"
         >
         </textarea>
       </div>
@@ -78,46 +87,69 @@
       <div class="col-xl-4 col-md-6 col-sm-12">
         <div class="mb-3">
           <label for="city" class="form-label">
-            City <sup class="text-danger fw-bold">*</sup>
+            City <span class="text-danger fw-bold">*</span>
           </label>
           <input
             type="text"
             class="form-control"
             id="city"
             formControlName="city"
+            [ngClass]="{
+              'is-invalid': businessForm.get('city').errors && submitted
+            }"
           />
         </div>
       </div>
       <div class="col-xl-4 col-md-6 col-sm-12">
         <div class="mb-3">
           <label for="pincode" class="form-label">
-            Pincode <sup class="text-danger fw-bold">*</sup>
+            Pincode <span class="text-danger fw-bold">*</span>
           </label>
           <input
             type="text"
             class="form-control"
             id="pincode"
             formControlName="pincode"
+            [ngClass]="{
+              'is-invalid': businessForm.get('pincode').errors && submitted
+            }"
           />
         </div>
       </div>
       <div class="col-xl-4 col-md-6 col-sm-12">
         <div class="mb-3">
           <label for="mobile" class="form-label">
-            Mobile/Contact Indo <sup class="text-danger fw-bold">*</sup>
+            Mobile/Contact Info <span class="text-danger fw-bold">*</span>
           </label>
           <input
             type="text"
             class="form-control"
             id="mobile"
             formControlName="mobile"
+            [ngClass]="{
+              'is-invalid': businessForm.get('mobile').errors && submitted
+            }"
+          />
+        </div>
+      </div>
+      <div class="col-xl-4 col-md-6 col-sm-12">
+        <div class="mb-3">
+          <label for="blueprint" class="form-label">
+            Blueprint <span class="text-danger fw-bold">*</span>
+          </label>
+          <input
+            class="form-control"
+            type="file"
+            id="blueprint"
+            accept="image/*"
+            (change)="uploadBlueprint($event)"
           />
         </div>
       </div>
     </div>
     <div class="mb-3" (window:resize)="onResize($event)">
       <label for="location" class="form-label">
-        Location <sup class="text-danger fw-bold">*</sup>
+        Location <span class="text-danger fw-bold">*</span>
       </label>
       <section class="map_box_container">
         <!--MAP-->
@@ -126,7 +158,7 @@
     </div>
     <div class="mb-3">
       <label for="service" class="form-label my-auto">
-        Services With Proof <sup class="text-danger fw-bold">*</sup>
+        Services With Proof <span class="text-danger fw-bold">*</span>
       </label>
       <div
         class="flex-wrap mt-2"
@@ -149,9 +181,9 @@
           </div>
           <div *ngIf="service.present" class="col-xl-9 col-md-12 col-sm-12">
             <div class="mb-3 d-flex align-items-center justify-content-start">
-              <label for="formFile" class="form-label">
+              <label for="formFile" class="form-label my-auto">
                 Upload proof for {{ service.name }}
-                <sup class="text-danger fw-bold">*</sup>
+                <span class="text-danger fw-bold">*</span>
               </label>
               <input
                 class="form-control form-control-sm w-50 ms-3"
@@ -170,8 +202,12 @@
         {{ proof.name }}
       </div>
     </div>
-    <div class="text-center">
-      <button class="btn btn-outline-success text-center px-4" type="submit">
+    <div class="text-center mb-3">
+      <button
+        class="btn btn-outline-success text-center px-4"
+        type="submit"
+        [disabled]="isLoading"
+      >
         <div
           class="spinner-border spinner-border-sm mx-1"
           role="status"

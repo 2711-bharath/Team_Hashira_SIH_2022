@@ -14,6 +14,11 @@ import { HomeComponent } from './components/home/home.component';
 import { RegisterBusinessComponent } from './components/register-business/register-business.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { MapViewComponent } from './components/map-view/map-view.component';
+import { LoginComponent } from './components/login/login.component';
+
+import { WindowService } from './services/window.service';
+
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -21,7 +26,8 @@ import { MapViewComponent } from './components/map-view/map-view.component';
     HomeComponent,
     RegisterBusinessComponent,
     NavbarComponent,
-    MapViewComponent
+    MapViewComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -33,8 +39,13 @@ import { MapViewComponent } from './components/map-view/map-view.component';
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
+    ToastrModule.forRoot({
+      closeButton: true,
+      timeOut: 6000, // 6 seconds
+      progressBar: true,
+    }),
   ],
-  providers: [],
+  providers: [WindowService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

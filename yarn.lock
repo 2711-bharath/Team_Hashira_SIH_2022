@@ -195,7 +195,7 @@
     "symbol-observable" "4.0.0"
     "uuid" "8.3.2"
 
-"@angular/common@^12.0.0 || ^13.0.0", "@angular/common@~12.2.0", "@angular/common@12.2.16":
+"@angular/common@^12.0.0 || ^13.0.0", "@angular/common@>=12.0.0-0", "@angular/common@~12.2.0", "@angular/common@12.2.16":
   "integrity" "sha512-FEqTXTEsnbDInqV1yFlm97Tz1OFqZS5t0TUkm8gzXRgpIce/F/jLwAg0u1VQkgOsno6cNm0xTWPoZgu85NI4ug=="
   "resolved" "https://registry.npmjs.org/@angular/common/-/common-12.2.16.tgz"
   "version" "12.2.16"
@@ -229,7 +229,7 @@
   dependencies:
     "tslib" "^2.2.0"
 
-"@angular/core@^12.0.0 || ^13.0.0", "@angular/core@~12.2.0", "@angular/core@12.2.16":
+"@angular/core@^12.0.0 || ^13.0.0", "@angular/core@>=12.0.0-0", "@angular/core@~12.2.0", "@angular/core@12.2.16":
   "integrity" "sha512-jsmvaRdAfng99z2a9mAmkfcsCE1wm+tBYVDxnc5JquSXznwtncjzcoc2X0J0dzrkCDvzFfpTsZ9vehylytBc+A=="
   "resolved" "https://registry.npmjs.org/@angular/core/-/core-12.2.16.tgz"
   "version" "12.2.16"
@@ -271,7 +271,7 @@
   dependencies:
     "tslib" "^2.2.0"
 
-"@angular/platform-browser@^12.0.0 || ^13.0.0", "@angular/platform-browser@~12.2.0", "@angular/platform-browser@12.2.16":
+"@angular/platform-browser@^12.0.0 || ^13.0.0", "@angular/platform-browser@>=12.0.0-0", "@angular/platform-browser@~12.2.0", "@angular/platform-browser@12.2.16":
   "integrity" "sha512-T855ppLeQO6hRHi7lGf5fwPoUVt+c0h2rgkV5jHElc3ylaGnhecmZc6fnWLX4pw82TMJUgUV88CY8JCFabJWwg=="
   "resolved" "https://registry.npmjs.org/@angular/platform-browser/-/platform-browser-12.2.16.tgz"
   "version" "12.2.16"
@@ -3989,6 +3989,11 @@
   "resolved" "https://registry.npmjs.org/esbuild-wasm/-/esbuild-wasm-0.13.8.tgz"
   "version" "0.13.8"
 
+"esbuild-windows-64@0.13.8":
+  "integrity" "sha512-76Fb57B9eE/JmJi1QmUW0tRLQZfGo0it+JeYoCDTSlbTn7LV44ecOHIMJSSgZADUtRMWT9z0Kz186bnaB3amSg=="
+  "resolved" "https://registry.npmjs.org/esbuild-windows-64/-/esbuild-windows-64-0.13.8.tgz"
+  "version" "0.13.8"
+
 "esbuild@0.13.8":
   "integrity" "sha512-A4af7G7YZLfG5OnARJRMtlpEsCkq/zHZQXewgPA864l9D6VjjbH1SuFYK/OSV6BtHwDGkdwyRrX0qQFLnMfUcw=="
   "resolved" "https://registry.npmjs.org/esbuild/-/esbuild-0.13.8.tgz"
@@ -6248,6 +6253,13 @@
   "integrity" "sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw=="
   "resolved" "https://registry.npmjs.org/neo-async/-/neo-async-2.6.2.tgz"
   "version" "2.6.2"
+
+"ngx-toastr@^14.2.2":
+  "integrity" "sha512-/Ajr9E0llr51Zij8WgnxQpe7a5JK+k1n07/uWJcQ112OBH0GCktHi8M8QfGvw5Ih67hG8iowrT+aHXHS49gZcQ=="
+  "resolved" "https://registry.npmjs.org/ngx-toastr/-/ngx-toastr-14.2.2.tgz"
+  "version" "14.2.2"
+  dependencies:
+    "tslib" "^2.3.0"
 
 "nice-try@^1.0.4":
   "integrity" "sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ=="
