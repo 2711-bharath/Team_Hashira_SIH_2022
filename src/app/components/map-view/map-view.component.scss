@@ -9,8 +9,6 @@
 }
 
 .btn {
-    background-color: #fff;
-    color: #3c4043;
     text-align: center;
     justify-content: space-between;
     height: 32px;
@@ -18,4 +16,8 @@
     display: flex;
     align-items: center;
     font-weight: 600;
+    &-white {
+        background-color: #fff;
+        color: #3c4043;    
+    }
 }

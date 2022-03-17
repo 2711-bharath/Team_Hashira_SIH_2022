@@ -19,10 +19,14 @@
             class="form-check-input mt-1"
             type="checkbox"
             [checked]="item.show"
-            (id)="(item.value)"
+            [id]="item.value"
+            (click)="filterData(item.value)"
           />
-          <label class="form-check-label ms-3" (for)="(item.value)">
-            <span class="btn btn-white rounded-pill shadow">
+          <label class="form-check-label ms-3" [for]="item.value">
+            <span
+              class="btn shadow"
+              [ngstyle]="item.show ? 'btn-primary' : ' btn-white'"
+            >
               <div [innerHTML]="item.icon" class="me-2"></div>
               {{ item.value }}
             </span>

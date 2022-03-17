@@ -14,57 +14,58 @@ export class MapViewComponent implements OnInit {
   map: mapboxgl.Map;
   businessTypes = [
     {
-      value:"Education",
+      value: "Education",
       show: false,
       icon: `<i class="fa-solid fa-school"></i>`
     },
     {
-      value:"Hospital",
+      value: "Hospital",
       show: false,
       icon: `<i class="fa-solid fa-hospital"></i>`
     },
     {
-      value:"Residential",
+      value: "Residential",
       show: false,
       icon: `<i class="fas fa-building"></i>`
     },
     {
-      value:"Restaurant",
+      value: "Restaurant",
       show: false,
       icon: `<i class="fa-solid fa-utensils"></i>`
     },
     {
-      value:"Bus Stop",
+      value: "Bus Stop",
       show: false,
       icon: `<i class="fa-solid fa-bus"></i>`
     },
     {
-      value:"Hotels",
+      value: "Hotels",
       show: false,
       icon: `<i class="fa-solid fa-hotel"></i>`
     },
     {
-      value:"Cinema Theater",
+      value: "Cinema Theater",
       show: false,
       icon: `<i class="fas fa-film"></i>`
     },
     {
-      value:"Railway Station",
+      value: "Railway Station",
       show: false,
       icon: `<i class="fa-solid fa-subway"></i>`
     },
   ]
-  Data:any;
-  filteredData=[]
+  resData: any;
+  filteredData = [];
+  markers: Array<mapboxgl.Marker> = [];
+
   constructor(
-    private db:AngularFirestore,
-    private service:RegisterBusinessService
+    private db: AngularFirestore,
+    private service: RegisterBusinessService
   ) { }
 
   ngOnInit(): void {
-    this.service.getAllProviders().subscribe(res=>{
-      this.Data=res;
-      this.filteredData=this.Data;
+    this.service.getAllProviders().subscribe(res => {
+      this.resData = res;
       this.loadMap();
     })
 
@@ -75,7 +76,7 @@ export class MapViewComponent implements OnInit {
       accessToken: environment.mapbox.accessToken,
       container: 'map-view',
       style: 'mapbox://styles/mapbox/streets-v11', // style URL
-      center: [-74.5, 40], // starting position [lng, lat]
+      center: [78.3839, 17.537537], // starting position [lng, lat]
       zoom: 9, // starting zoom
     });
     // Add map controls
@@ -89,38 +90,74 @@ export class MapViewComponent implements OnInit {
         showUserHeading: true
       }), 'top-left'
     );
+    this.loadMarkers()
+  }
 
-    this.filteredData.map(data => {
-      this.map.on('load', () => {
-        const geocoder = new MapboxGeocoder({
-          accessToken: environment.mapbox.accessToken,
-          mapboxgl: mapboxgl,
-          marker: false,
-        });
+  loadMarkers() {
+    this.markers.forEach(marker => {
+      marker.remove();
+    })
+    this.markers = [];
+    if (this.filteredData.length === 0) {
+      console.log(this.resData)
+      this.resData.map(data => {
+        // const geocoder = new MapboxGeocoder({
+        //   accessToken: environment.mapbox.accessToken,
+        //   mapboxgl: mapboxgl,
+        //   marker: false,
+        // });
         const popup = new mapboxgl.Popup({ offset: 35 }).setHTML(
           `
-            <style>
-              .card{
-                background-color
-              }
-            </style>
-            <div class="card" style="width: 12rem;">
-              <img class="card-img-top" src="${data.images[0].url}" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">${data.name}</h5>
-                <p class="card-text">${data.address}</p>
-                <p>Services:${data.services.map(s=>{return s})}</p>
+              <style>
+                .card{
+                  background-color
+                }
+              </style>
+              <div class="card" style="width: 12rem;">
+                <img class="card-img-top" src="${data.images[0].url}" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">${data.name}</h5>
+                  <p class="card-text">${data.address}</p>
+                  <p>Services:${data.services.map(s => { return s })}</p>
+                </div>
               </div>
-            </div>
-          `
-          );
+            `
+        );
         var marker = new mapboxgl.Marker({
           draggable: false,
           color: "#D80739",
         }).setLngLat(data.location).addTo(this.map).setPopup(popup);
+        this.markers.push(marker)
       })
-    })
-
+    } else {
+      this.resData.map(data => {
+        let idx = this.filteredData.indexOf(data.type);
+        if (idx > -1) {
+          const popup = new mapboxgl.Popup({ offset: 35 }).setHTML(
+            `
+                <style>
+                  .card{
+                    background-color
+                  }
+                </style>
+                <div class="card" style="width: 12rem;">
+                  <img class="card-img-top" src="${data.images[0].url}" alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title">${data.name}</h5>
+                    <p class="card-text">${data.address}</p>
+                    <p>Services:${data.services.map(s => { return s })}</p>
+                  </div>
+                </div>
+              `
+          );
+          var marker = new mapboxgl.Marker({
+            draggable: false,
+            color: "#D80739",
+          }).setLngLat(data.location).addTo(this.map).setPopup(popup);
+          this.markers.push(marker)
+        }
+      })
+    }
   }
 
   onResize(event): void {
@@ -129,7 +166,19 @@ export class MapViewComponent implements OnInit {
     map_view.style.width = `width: ${event.target.innerWidth}px`
   }
 
-  processData(type:string){
-    this.filteredData=[... this.filteredData,this.Data.filter(val=>val.type=type)]
+  filterData(type: string) {
+    this.filteredData = []
+    this.businessTypes = this.businessTypes.filter(business => {
+      if (business.value === type) {
+        business.show = !business.show
+      }
+      if (business.show) {
+        this.filteredData.push(business.value)
+      }
+      return business;
+    })
+    console.log(this.filteredData);
+    console.log(this.markers)
+    this.loadMarkers();
   }
 }
