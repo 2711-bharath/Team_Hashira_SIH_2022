@@ -77,7 +77,7 @@ export class MapViewComponent implements OnInit {
       container: 'map-view',
       style: 'mapbox://styles/mapbox/streets-v11', // style URL
       center: [78.3839, 17.537537], // starting position [lng, lat]
-      zoom: 9, // starting zoom
+      zoom: 10, // starting zoom
     });
     // Add map controls
     this.map.addControl(new mapboxgl.NavigationControl());
@@ -97,7 +97,7 @@ export class MapViewComponent implements OnInit {
     this.markers.forEach(marker => {
       marker.remove();
     })
-    this.markers = [];
+    this.markers = []
     if (this.filteredData.length === 0) {
       console.log(this.resData)
       this.resData.map(data => {

@@ -6,6 +6,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms'
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { RegisterBusinessService } from '../../services/register-business.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-business',
@@ -26,7 +27,8 @@ export class RegisterBusinessComponent implements OnInit {
   constructor(
     private storage: AngularFireStorage,
     private service: RegisterBusinessService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -220,6 +222,7 @@ export class RegisterBusinessComponent implements OnInit {
           this.submitted = false;
           this.isLoading = false;
           this.toastr.success('Successfully added the record!', 'Success');
+          this.router.navigateByUrl('map-view');
         } else {
           this.toastr.error('Some error occured', 'Error');
         }

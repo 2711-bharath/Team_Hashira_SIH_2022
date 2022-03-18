@@ -7,6 +7,7 @@ import { initializeApp } from 'firebase/app';
 import { environment } from 'src/environments/environment';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,7 @@ export class LoginComponent implements OnInit {
   auth: any
   showOTPOpt:boolean = false;
 
-  constructor(private win: WindowService, private authService: AuthService, private toastrService: ToastrService) { }
+  constructor(private win: WindowService, private authService: AuthService, private toastrService: ToastrService, private router: Router) { }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -69,6 +70,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('userId', result.user.uid)
         localStorage.setItem('loggedInToAccessableMap', "true")
         this.toastrService.success("Loggedin Successfully", "Successfull")
+        this.router.navigateByUrl('map-view');
       })
       .catch( error => this.toastrService.error("Incorrect code entered?", "Error"));
     } else {
